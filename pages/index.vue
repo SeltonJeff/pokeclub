@@ -1,7 +1,10 @@
 <template>
   <div class="pokedex-container container">
     <h1 class="title">Your Pokedex</h1>
-    <h1 v-if="checkAmount() === false">Loading...</h1>
+    <h1 v-if="checkAmount() === false" class="loading">
+      <img src="../assets/loading.gif" alt="loading">
+      loading...
+    </h1>
     <poke-list :poke-list="pokeList" :know="know" :catched="catched" />
   </div>
 </template>
@@ -81,6 +84,21 @@ export default Vue.extend({
       margin-bottom: 40px;
       text-shadow: white 1px -1px, white -1px 1px, white 1px 1px,
         white -1px -1px;
+    }
+
+    &.loading{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ebc908;
+      text-shadow: black 2px -2px, black -2px 2px, black 2px 2px,
+        black -1px -1px;
+      img{
+        margin-bottom: 50px;
+        object-fit: cover;
+        max-width: 100px;
+      }
     }
   }
 }
