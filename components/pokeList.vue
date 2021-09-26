@@ -93,7 +93,7 @@ export default {
     viewCurrentDex(index: number): void {
       this.selectedPoke = index
       try {
-        document.querySelector('#internalPokedex').className = 'main-modal show'
+        document.querySelector('#internalPokedex')!.className = 'main-modal show'
       } catch {}
     },
   },

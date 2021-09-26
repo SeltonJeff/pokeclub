@@ -33,7 +33,7 @@ export default {
 
   methods: {
     closeModal() {
-      document.querySelector(`#${this.currentName}`).className = 'main-modal'
+      document.querySelector(`#${this.currentName}`)!.className = 'main-modal'
     },
     currentPokeName(): void {
       return this.currentData?.forms ? this.currentData?.forms[0].name : ''
