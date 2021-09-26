@@ -136,7 +136,7 @@ export default {
         filter: brightness(1);
 
         &:hover {
-          filter: brightness(1.3);
+          // filter: brightness(1.2);
         }
       }
     }
@@ -177,6 +177,7 @@ export default {
     }
 
     h4 {
+      text-transform: capitalize;
       letter-spacing: 4px;
       font-family: PokemonSolid;
       text-shadow: black 1px -1px, black -1px 1px, black 1px 1px,

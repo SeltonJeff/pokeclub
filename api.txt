@@ -1,2 +1,1 @@
-https://github.com/ythalocosta/pokedex
 https://pokeapi.com/
