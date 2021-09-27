@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import InternalPokedex from '~/components/InternalPokedex.vue'
 
 export default {
@@ -80,20 +80,20 @@ export default {
   },
 
   methods: {
-    checkKnow(index: number): Boolean {
+    checkKnow(index) {
       return !!(this.know.filter((e) => e === index)[0] !== undefined || null)
     },
 
-    checkCatched(index: number): Boolean {
+    checkCatched(index) {
       return !!(
         this.catched.filter((e) => e === index)[0] !== undefined || null
       )
     },
 
-    viewCurrentDex(index: number): void {
+    viewCurrentDex(index) {
       this.selectedPoke = index
       try {
-        document.querySelector('#internalPokedex')!.className = 'main-modal show'
+        document.querySelector('#internalPokedex').className = 'main-modal show'
       } catch {}
     },
   },

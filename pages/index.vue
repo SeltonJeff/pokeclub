@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios'
 import Vue from 'vue'
 
@@ -37,16 +37,16 @@ export default Vue.extend({
   },
 
   methods: {
-    API_URL(): string {
+    API_URL() {
       return process.env?.BASE ? process.env.BASE : 'https://pokeapi.co/api/v2'
     },
 
-    async getPokeList(initial: number = 1): Promise<void> {
-      const numOfPokes: number = 385
+    async getPokeList(initial = 1) {
+      const numOfPokes = 385
 
       try {
-        for (let i: number = initial; i < numOfPokes; i++) {
-          const { data }: never = await axios.get(
+        for (let i = initial; i < numOfPokes; i++) {
+          const { data } = await axios.get(
             `${this.API_URL()}/pokemon/${i}`
           )
           this.pokeList.push(data)
@@ -54,7 +54,7 @@ export default Vue.extend({
       } catch {}
     },
 
-    checkAmount(): boolean {
+    checkAmount() {
       if (this.pokeList.length > 380) return true
       else return false
     },

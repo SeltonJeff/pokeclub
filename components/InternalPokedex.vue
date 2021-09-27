@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   name: 'InternalPokedex',
   props: {
@@ -33,12 +33,12 @@ export default {
 
   methods: {
     closeModal() {
-      document.querySelector(`#${this.currentName}`)!.className = 'main-modal'
+      document.querySelector(`#${this.currentName}`).className = 'main-modal'
     },
-    currentPokeName(): void {
+    currentPokeName(){
       return this.currentData?.forms ? this.currentData?.forms[0].name : ''
     },
-    currentImage(): void {
+    currentImage(){
       return this.currentData?.sprites?.other?.dream_world?.front_default
         ? this.currentData?.sprites?.other?.dream_world?.front_default
         : ''
