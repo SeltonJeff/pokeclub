@@ -134,10 +134,6 @@ export default {
 
       &.show {
         filter: brightness(1);
-
-        &:hover {
-          // filter: brightness(1.2);
-        }
       }
     }
 
@@ -185,6 +181,18 @@ export default {
       &.show {
         color: lightgray;
       }
+    }
+  }
+
+  @media (max-width: 700px) {
+    width: 100vw;
+    height: 100%;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+
+    &:hover {
+      width: 100vw;
     }
   }
 }

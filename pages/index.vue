@@ -2,7 +2,7 @@
   <div class="pokedex-container container">
     <h1 class="title">Your Pokedex</h1>
     <h1 v-if="checkAmount() === false" class="loading">
-      <img src="../assets/loading.gif" alt="loading">
+      <img src="../assets/loading.gif" alt="loading" />
       loading...
     </h1>
     <poke-list :poke-list="pokeList" :know="know" :catched="catched" />
@@ -24,11 +24,8 @@ export default Vue.extend({
   data() {
     return {
       pokeList: [],
-      know: [
-        0, 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22,
-        23, 24, 25, 26,
-      ],
-      catched: [2, 5, 6, 7, 12],
+      know: [],
+      catched: [],
     }
   },
 
@@ -46,10 +43,9 @@ export default Vue.extend({
 
       try {
         for (let i = initial; i < numOfPokes; i++) {
-          const { data } = await axios.get(
-            `${this.API_URL()}/pokemon/${i}`
-          )
+          const { data } = await axios.get(`${this.API_URL()}/pokemon/${i}`)
           this.pokeList.push(data)
+          this.know.push(i - 1)
         }
       } catch {}
     },
@@ -86,7 +82,7 @@ export default Vue.extend({
         white -1px -1px;
     }
 
-    &.loading{
+    &.loading {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -94,11 +90,21 @@ export default Vue.extend({
       color: #ebc908;
       text-shadow: black 2px -2px, black -2px 2px, black 2px 2px,
         black -1px -1px;
-      img{
+      img {
         margin-bottom: 50px;
         object-fit: cover;
         max-width: 100px;
       }
+    }
+  }
+
+  @media (max-width: 700px) {
+    height: 90vh;
+    max-width: 100vw;
+
+    .title {
+      margin: 0;
+      font-size: 2em;
     }
   }
 }

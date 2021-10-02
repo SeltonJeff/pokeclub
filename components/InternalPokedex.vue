@@ -2,10 +2,69 @@
   <div :id="currentName" class="main-modal">
     <a class="close-modal" @click.prevent="closeModal()">X</a>
     <div class="content-view">
-      <!-- <slot></slot> -->
-      <h1>{{ currentPokeName() }}</h1>
-      <div class="img-content">
-        <img @click.prevent="currentImage()" :src="currentImage()" alt="" />
+      <div class="principal">
+        <!-- pokeimage -->
+        <div class="img-content">
+          <!-- pokename -->
+          <h1>{{ currentData.name !== undefined ? currentData.name : '' }}</h1>
+          <img @click.prevent="" :src="currentImage()" alt="" />
+        </div>
+
+        <!-- types -->
+        <h3 v-for="(type, i) in currentData.types" :key="i">
+          Tipo: <span :class="type.type.name"> {{ getType(i) }} </span>
+        </h3>
+      </div>
+
+      <!-- stats -->
+      <div class="stats">
+        <h2>Stats</h2>
+        <div class="stats__stat">
+          Vitalidade:
+          <span>
+            {{
+              currentData.stats !== undefined
+                ? currentData.stats[0].base_stat
+                : ''
+            }}
+          </span>
+        </div>
+        <div class="stats__stat">
+          Ataque:
+          <span>
+            {{
+              currentData.stats !== undefined
+                ? currentData.stats[1].base_stat
+                : ''
+            }}
+          </span>
+        </div>
+        <div class="stats__stat">
+          Defesa:
+          <span>
+            {{
+              currentData.stats !== undefined
+                ? currentData.stats[2].base_stat
+                : ''
+            }}
+          </span>
+        </div>
+        <div class="stats__stat">
+          Velocidade:
+          <span>
+            {{
+              currentData.stats !== undefined
+                ? currentData.stats[5].base_stat
+                : ''
+            }}
+          </span>
+        </div>
+        <div class="stats__stat">
+          Peso:
+          <span>
+            {{ currentData.weight !== undefined ? currentData.weight : '' }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -17,7 +76,7 @@ export default {
   props: {
     currentName: {
       type: String,
-      default: 'modal',
+      default: '',
     },
     currentData: {
       type: Object,
@@ -35,12 +94,14 @@ export default {
     closeModal() {
       document.querySelector(`#${this.currentName}`).className = 'main-modal'
     },
-    currentPokeName(){
-      return this.currentData?.forms ? this.currentData?.forms[0].name : ''
+    currentImage() {
+      return this.currentData.sprites?.other?.dream_world?.front_default
+        ? this.currentData.sprites.other.dream_world?.front_default
+        : ''
     },
-    currentImage(){
-      return this.currentData?.sprites?.other?.dream_world?.front_default
-        ? this.currentData?.sprites?.other?.dream_world?.front_default
+    getType(num) {
+      return this.currentData.types !== undefined
+        ? this.currentData.types[num].type.name
         : ''
     },
   },
@@ -84,24 +145,113 @@ export default {
     }
   }
   .content-view {
+    position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 80vw;
-    height: 90vh;
-    // border: 20px solid lightgray;
+    width: 80%;
+    height: 90%;
     border-radius: 10px;
 
     background-color: #7b0907;
 
-    h1 {
-      margin: 20px;
-      text-transform: capitalize;
+    text-transform: capitalize;
+    color: #fffae0;
+    text-shadow: black 2px -2px, black -2px 2px, black 2px 2px, black -1px -1px;
+    letter-spacing: 4px;
+
+    .principal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stats {
+      text-align: center;
+
+      span {
+        color: #ebc908;
+      }
+    }
+
+    h1,
+    h2 {
       color: #ebc908;
-      text-shadow: black 2px -2px, black -2px 2px, black 2px 2px,
-        black -1px -1px;
-      letter-spacing: 4px;
+    }
+    h2 {
+      margin: 20px;
+    }
+
+    .img-content {
+      margin: 0 20px 20px 20px;
+      text-align: center;
+      img {
+        max-width: 90%;
+        max-height: 50vw;
+      }
+    }
+
+    .fire {
+      color: #fc0000;
+    }
+    .water {
+      color: #0026ff;
+    }
+    .grass {
+      color: #66af06;
+    }
+    .electric {
+      color: #ffee00;
+    }
+    .fighting {
+      color: #857c00;
+    }
+    .ice {
+      color: #94fff6;
+    }
+    .psychic {
+      color: #0a5700;
+    }
+    .bug {
+      color: #6e9169;
+    }
+    .poison {
+      color: #55297e;
+    }
+    .normal {
+      color: #472e0d;
+    }
+    .dark {
+      color: #2b2b2b;
+    }
+    .ground {
+      color: #af6f3a;
+    }
+    .iron,
+    .steel {
+      color: #b8b8b8;
+    }
+    .rock {
+      color: #5a5a5a;
+    }
+    .flying {
+      color: #00f7ff;
+    }
+    .ghost {
+      color: #363442;
+    }
+    .dragon {
+      color: #ce6b0f;
+    }
+    .fairy {
+      color: #df86af;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .content-view {
+      flex-direction: column;
     }
   }
 }
