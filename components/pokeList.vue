@@ -11,7 +11,8 @@
           :title="checkKnow(i) ? poke.forms[0].name : '???'"
           :src="poke.sprites.front_default"
           :alt="poke.forms[0].name"
-          :class="checkKnow(i) ? 'show' : ''"
+          :class="checkKnow(i) ? 'poke-icon show' : 'poke-icon'"
+          @click="discovery(i)"
         />
         <div class="poke-description">
           <img
@@ -96,6 +97,10 @@ export default {
         document.querySelector('#internalPokedex').className = 'main-modal show'
       } catch {}
     },
+
+    discovery(i) {
+      this.$emit('discovery', i)
+    },
   },
 }
 </script>
@@ -106,7 +111,7 @@ export default {
 }
 .poke-list {
   max-height: 60vh;
-  width: 60vh;
+  width: 540px;
   background-color: rgb(100, 100, 100);
   overflow-y: scroll;
   transition: 0.2s;
@@ -116,6 +121,12 @@ export default {
 
   &:hover {
     width: 90vh;
+  }
+
+  .poke-icon {
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .listed-poke {

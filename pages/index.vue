@@ -5,7 +5,21 @@
       <img src="../assets/loading.gif" alt="loading" />
       loading...
     </h1>
-    <poke-list :poke-list="pokeList" :know="know" :catched="catched" />
+    <poke-list
+      :poke-list="pokeList"
+      :know="know"
+      :catched="catched"
+      @discovery="discoveryPoke"
+    />
+
+    <div class="info">
+      <h4 v-if="this.pokeList.length == this.numOfPokes - 1">
+        Conecidos: {{ know.length }}
+      </h4>
+      <h4 v-if="this.pokeList.length == this.numOfPokes - 1">
+        Desconhecidos: {{ numOfPokes - know.length }}
+      </h4>
+    </div>
   </div>
 </template>
 
@@ -23,6 +37,7 @@ export default Vue.extend({
 
   data() {
     return {
+      numOfPokes: 385,
       pokeList: [],
       know: [],
       catched: [],
@@ -30,6 +45,9 @@ export default Vue.extend({
   },
 
   mounted() {
+    !!localStorage.getItem('knows')
+      ? (this.know = JSON.parse(localStorage.getItem('knows')))
+      : (this.know = [])
     this.getPokeList()
   },
 
@@ -39,13 +57,10 @@ export default Vue.extend({
     },
 
     async getPokeList(initial = 1) {
-      const numOfPokes = 385
-
       try {
-        for (let i = initial; i < numOfPokes; i++) {
+        for (let i = initial; i < this.numOfPokes; i++) {
           const { data } = await axios.get(`${this.API_URL()}/pokemon/${i}`)
           this.pokeList.push(data)
-          this.know.push(i - 1)
         }
       } catch {}
     },
@@ -53,6 +68,18 @@ export default Vue.extend({
     checkAmount() {
       if (this.pokeList.length > 380) return true
       else return false
+    },
+
+    discoveryPoke(i) {
+      if (this.know.filter((e) => e === i).length < 1) {
+        let pokeName = prompt(
+          'Se você conhece este pokemon, informe o nome para desbloquear em sua pokedex.'
+        )
+        if (this.pokeList[i].forms[0].name == pokeName) {
+          this.know.push(i)
+          localStorage.setItem('knows', JSON.stringify(this.know))
+        }
+      }
     },
   },
 })
@@ -65,7 +92,7 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   height: 90vh;
-  max-width: 70vh;
+  max-width: 600px;
 
   background-color: #7b0907;
   box-shadow: 0px 0px 20px black;
@@ -95,6 +122,18 @@ export default Vue.extend({
         object-fit: cover;
         max-width: 100px;
       }
+    }
+  }
+
+  .info {
+    display: flex;
+    h4 {
+      font-size: 1em;
+      letter-spacing: 4px;
+      margin: 10px;
+      color: white;
+      text-shadow: black 1px -1px, black -1px 1px, black 1px 1px,
+        black -1px -1px;
     }
   }
 
