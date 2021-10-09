@@ -13,10 +13,10 @@
     />
 
     <div class="info">
-      <h4 v-if="this.pokeList.length == this.numOfPokes - 1">
+      <h4 v-if="pokeList.length === numOfPokes - 1">
         Conecidos: {{ know.length }}
       </h4>
-      <h4 v-if="this.pokeList.length == this.numOfPokes - 1">
+      <h4 v-if="pokeList.length === numOfPokes - 1">
         Desconhecidos: {{ numOfPokes - know.length }}
       </h4>
     </div>
@@ -45,7 +45,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    !!localStorage.getItem('knows')
+    localStorage.getItem('knows')
       ? (this.know = JSON.parse(localStorage.getItem('knows')))
       : (this.know = [])
     this.getPokeList()
@@ -72,10 +72,10 @@ export default Vue.extend({
 
     discoveryPoke(i) {
       if (this.know.filter((e) => e === i).length < 1) {
-        let pokeName = prompt(
+        const pokeName = prompt(
           'Se você conhece este pokemon, informe o nome para desbloquear em sua pokedex.'
         )
-        if (this.pokeList[i].forms[0].name == pokeName) {
+        if (this.pokeList[i].forms[0].name === pokeName) {
           this.know.push(i)
           localStorage.setItem('knows', JSON.stringify(this.know))
         }

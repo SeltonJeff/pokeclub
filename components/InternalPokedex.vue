@@ -7,7 +7,7 @@
         <div class="img-content">
           <!-- pokename -->
           <h1>{{ currentData.name !== undefined ? currentData.name : '' }}</h1>
-          <img @click.prevent="" :src="currentImage()" alt="" />
+          <img :src="currentImage()" alt="" @click.prevent="" />
         </div>
 
         <!-- types -->
